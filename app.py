@@ -8,13 +8,12 @@ from rich.console import Console
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
 from langchain.prompts import PromptTemplate
-from langchain_community.llms import Ollama
-from tts import TextToSpeechService
+from langchain_community.llms.ollama import Ollama
+from gtts import gTTS
 
 console = Console()
 stt = whisper.load_model("base.en")
-tts = TextToSpeechService()
-
+tts = gTTS
 template = """
 You are a helpful and friendly AI assistant. You are polite, respectful, and aim to provide concise responses of less 
 than 20 words.
@@ -46,6 +45,7 @@ def record_audio(stop_event, data_queue):
     Returns:
         None
     """
+
     def callback(indata, frames, time, status):
         if status:
             console.print(status)
